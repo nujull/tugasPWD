@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Layar Musik</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            max-height: 100vh;
+        }
+        .container {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            max-width: 800px;
+            align-items: center;
+        }
+        .form-panel {
+            flex: 1;
+            background-color: #282828;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        .preview-panel {
+            flex: 1;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            color: #1DB954;
+        }
+        .grup-input {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b3b3b3;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #535353;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #3e3e3e;
+            color: white;
+        }
+
+        #music-player {
+            background: linear-gradient(to bottom, #4a4a4a, #1a1a1a);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        #album-art {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        #song-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        #artist-name {
+            font-size: 1.1em;
+            color: #b3b3b3;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            background-color: #535353;
+            height: 4px;
+            border-radius: 2px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .control-icon {
+            width: 24px;
+            height: 24px;
+            fill: #b3b3b3;
+        }
+        .play-icon {
+            width: 36px;
+            height: 36px;
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-panel">
+            <h1>Editor Musik</h1>
+            <div class="grup-input">
+                <label for="input-title">Judul Lagu</label>
+                <input type="text" id="input-title" placeholder="cth: Bohemian Rhapsody">
+            </div>
+            <div class="grup-input">
+                <label for="input-artist">Nama Artis</label>
+                <input type="text" id="input-artist" placeholder="cth: Queen">
+            </div>
+            <div class="grup-input">
+                <label for="input-art-url">URL Gambar Album</label>
+                <input type="text" id="input-art-url" placeholder="Paste URL gambar di sini">
+            </div>
+        </div>
+        
+        <div class="preview-panel">
+            <div id="music-player">
+                <img id="album-art" src="https://placehold.co/300x300/1DB954/ffffff?text=Album+Art" alt="Gambar Album">
+                <div id="song-title">Judul Lagu</div>
+                <div id="artist-name">Nama Artis</div>
+                <div class="progress-bar"></div>
+                <div class="controls">
+                    <!-- Ikon SVG untuk tombol "Sebelumnya" -->
+                    <svg class="control-icon" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path></svg>
+                    <!-- Ikon SVG untuk tombol "Play" -->
+                    <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                    <!-- Ikon SVG untuk tombol "Berikutnya" -->
+                    <svg class="control-icon" viewBox="0 0 24 24"><path d="M16 6h2v12h-2zm-3.5 6l-8.5 6V6z"></path></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        function setupTextLiveUpdate(inputId, outputId, placeholderText) {
+            const inputEl = document.getElementById(inputId);
+            const outputEl = document.getElementById(outputId);
+            inputEl.addEventListener('input', function() {
+                outputEl.textContent = this.value || placeholderText;
+            });
+        }
+        
+
+        function setupImageLiveUpdate(inputId, outputId, placeholderUrl) {
+            const inputEl = document.getElementById(inputId);
+            const outputEl = document.getElementById(outputId);
+            inputEl.addEventListener('input', function() {
+                outputEl.src = this.value || placeholderUrl;
+            });
+
+            outputEl.onerror = function() {
+                this.src = placeholderUrl;
+            };
+        }
+
+
+        setupTextLiveUpdate('input-title', 'song-title', 'Judul Lagu');
+        setupTextLiveUpdate('input-artist', 'artist-name', 'Nama Artis');
+        setupImageLiveUpdate('input-art-url', 'album-art', 'https://placehold.co/300x300/1DB954/ffffff?text=Album+Art');
+    </script>
+
+</body>
+</html>
